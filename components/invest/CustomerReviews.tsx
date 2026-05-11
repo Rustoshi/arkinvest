@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
@@ -67,16 +67,6 @@ const reviews: Review[] = [
         body: "Invested in the Genomic Revolution strategy and already seeing solid trajectory. The research insights are incredibly detailed \u2014 you always know exactly where your capital is deployed and what the thesis looks like.",
         invested: "$30,000",
         plan: "Genomic Revolution",
-    },
-    {
-        name: "Amara O.",
-        location: "Lagos, Nigeria",
-        avatar: "AO",
-        rating: 5,
-        title: "World-class from Africa",
-        body: "Access to disruptive innovation investment opportunities from anywhere in the world. The onboarding was seamless, KYC was approved within hours, and my first returns arrived exactly on schedule.",
-        invested: "$10,000",
-        plan: "Core Momentum",
     },
 ];
 
@@ -217,9 +207,59 @@ export default function CustomerReviews() {
         };
     }, []);
 
+    /* ── Auto-swipe on mobile ── */
+    const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const pauseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const [autoPaused, setAutoPaused] = useState(false);
+
+    const startAutoPlay = useCallback(() => {
+        if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+        autoPlayRef.current = setInterval(() => {
+            const el = scrollRef.current;
+            if (!el) return;
+            const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 4;
+            if (atEnd) {
+                el.scrollTo({ left: 0, behavior: "smooth" });
+            } else {
+                el.scrollBy({ left: el.clientWidth * 0.85, behavior: "smooth" });
+            }
+        }, 4000);
+    }, []);
+
+    const pauseAutoPlay = useCallback(() => {
+        if (autoPlayRef.current) {
+            clearInterval(autoPlayRef.current);
+            autoPlayRef.current = null;
+        }
+        if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+        setAutoPaused(true);
+        pauseTimerRef.current = setTimeout(() => {
+            setAutoPaused(false);
+            startAutoPlay();
+        }, 6000);
+    }, [startAutoPlay]);
+
+    useEffect(() => {
+        const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
+        if (!isMobile) return;
+        startAutoPlay();
+
+        const el = scrollRef.current;
+        if (el) {
+            el.addEventListener("touchstart", pauseAutoPlay, { passive: true });
+        }
+
+        return () => {
+            if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+            if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+            if (el) el.removeEventListener("touchstart", pauseAutoPlay);
+        };
+    }, [startAutoPlay, pauseAutoPlay]);
+
     const scroll = (direction: "left" | "right") => {
         const el = scrollRef.current;
         if (!el) return;
+        pauseAutoPlay();
         const amount = el.clientWidth * 0.7;
         el.scrollBy({ left: direction === "left" ? -amount : amount, behavior: "smooth" });
     };

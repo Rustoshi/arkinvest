@@ -2,6 +2,7 @@ import Hero from "@/components/invest/Hero";
 import HowItWorks from "@/components/invest/HowItWorks";
 import AIPlans from "@/components/invest/AIPlans";
 import RiskArchitecture from "@/components/invest/RiskArchitecture";
+import StrategicAdvisory from "@/components/invest/StrategicAdvisory";
 import CustomerReviews from "@/components/invest/CustomerReviews";
 import FinalCTA from "@/components/invest/FinalCTA";
 import dbConnect from "@/lib/mongodb";
@@ -32,6 +33,7 @@ export default async function InvestPage() {
             <HowItWorks />
             <AIPlans plans={plans} />
             <RiskArchitecture />
+            <StrategicAdvisory />
             <CustomerReviews />
             <FinalCTA />
         </main>

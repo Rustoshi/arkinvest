@@ -3,6 +3,7 @@ import { Inter, Montserrat } from "next/font/google";
 import AuthProvider from "@/components/AuthProvider";
 import SupportWidget from "@/components/SmartsuppChat";
 import GTranslateWidget from "@/components/GTranslateWidget";
+import ActivityNotifications from "@/components/ActivityNotifications";
 import dbConnect from "@/lib/mongodb";
 import SupportSettings from "@/models/SupportSettings";
 import "./globals.css";
@@ -114,6 +115,7 @@ export default async function RootLayout({
           <div className="relative w-full max-w-[100vw] overflow-x-hidden flex flex-col min-h-screen">
             {children}
           </div>
+          <ActivityNotifications />
           <SupportWidget mode={supportMode} telegramUsername={telegramUsername} />
           <GTranslateWidget />
         </AuthProvider>

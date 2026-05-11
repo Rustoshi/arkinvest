@@ -151,13 +151,13 @@ const timeline = [
     },
     {
         year: "2024",
-        title: "AI Plans Launch",
-        desc: "The AI Capital Programs division launched systematic trading strategies across multiple capital tiers. The Fintech Innovation and Energy Storage strategies went live.",
+        title: "AI Plans & Strategic Affiliation",
+        desc: "The AI Capital Programs division launched systematic trading strategies across multiple capital tiers. ARK Invest formalised its strategic affiliation with Elon Musk, aligning the platform's innovation thesis with the ventures reshaping energy, space, AI, and neural technology.",
     },
     {
         year: "2025",
         title: "Scale & Expansion",
-        desc: "Platform expanded to serve investors across 50+ countries. Membership tiers introduced. Blockchain and Space Exploration strategies added to the pipeline.",
+        desc: "Platform expanded to serve investors across 50+ countries. Membership tiers introduced. Blockchain and Space Exploration strategies added to the pipeline. Deepened advisory alignment with Musk-affiliated ventures including SpaceX, Neuralink, and xAI.",
     },
     {
         year: "2026",
@@ -167,6 +167,13 @@ const timeline = [
 ];
 
 const team = [
+    {
+        initials: "EM",
+        name: "Elon Musk",
+        role: "Strategic Advisor & Affiliate",
+        bio: "CEO of Tesla, SpaceX, and xAI. Elon Musk serves as ARK Invest's strategic affiliate, providing advisory alignment across disruptive innovation themes including autonomous energy, space exploration, artificial intelligence, and neural technology.",
+        featured: true,
+    },
     {
         initials: "MC",
         name: "Marcus Chen",
@@ -336,7 +343,7 @@ export default function AboutClient({
                         transition={{ duration: 0.7, delay: 0.25 }}
                         className="text-base sm:text-lg text-white/50 font-light max-w-2xl mx-auto leading-relaxed"
                     >
-                        We are an AI-powered disruptive innovation platform built on a single conviction: the most consequential investment opportunities of the 21st century should not be reserved for institutions.
+                        We are an AI-powered disruptive innovation platform — operating in strategic affiliation with Elon Musk — built on a single conviction: the most consequential investment opportunities of the 21st century should not be reserved for institutions.
                     </motion.p>
                 </div>
             </section>
@@ -401,7 +408,7 @@ export default function AboutClient({
                                 ARK Invest exists to dismantle that structure. Through structured investment strategies, tiered entry points from $1,000, and an AI-powered trading layer, we give every qualified investor access to the same opportunity set that institutions have always enjoyed.
                             </p>
                             <p className="text-sm text-black/50 font-light leading-relaxed">
-                                Our mission is not charity — it is market efficiency. The most transformational companies deserve the broadest possible investor base, and investors deserve access to the most transformational companies.
+                                Our mission is not charity — it is market efficiency. The most transformational companies deserve the broadest possible investor base, and investors deserve access to the most transformational companies. Our strategic affiliation with Elon Musk reinforces this conviction — anchoring our innovation thesis to the ventures actively building the future.
                             </p>
                         </motion.div>
 
@@ -748,8 +755,39 @@ export default function AboutClient({
                         </h2>
                     </motion.div>
 
+                    {/* Featured Strategic Advisor */}
+                    {team.filter((m: any) => m.featured).map((member, i) => (
+                        <motion.div
+                            key={member.name}
+                            initial={{ opacity: 0, y: 24 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                            className="mb-8 rounded-2xl border border-blue-500/15 bg-white/[0.02] backdrop-blur-sm p-8 sm:p-10 overflow-hidden relative"
+                        >
+                            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
+                            <div>
+                                <div className="flex-1">
+                                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-3">
+                                        <h3
+                                            className="text-xl font-black text-white tracking-[0.04em]"
+                                            style={{ fontFamily: "var(--font-montserrat), sans-serif" }}
+                                        >
+                                            {member.name}
+                                        </h3>
+                                        <span className="text-[9px] tracking-[0.2em] uppercase text-blue-400 font-bold bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1 w-fit">
+                                            {member.role}
+                                        </span>
+                                    </div>
+                                    <p className="text-sm text-white/45 font-light leading-relaxed">{member.bio}</p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
+
+                    {/* Core Team */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                        {team.map((member, i) => (
+                        {team.filter((m: any) => !m.featured).map((member, i) => (
                             <motion.div
                                 key={member.name}
                                 initial={{ opacity: 0, y: 20 }}
@@ -758,16 +796,6 @@ export default function AboutClient({
                                 transition={{ duration: 0.6, delay: 0.08 * i }}
                                 className="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-7 hover:border-white/[0.12] transition-colors duration-300"
                             >
-                                {/* Avatar */}
-                                <div className="w-12 h-12 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center mb-5">
-                                    <span
-                                        className="text-sm font-black text-blue-400"
-                                        style={{ fontFamily: "var(--font-montserrat), sans-serif" }}
-                                    >
-                                        {member.initials}
-                                    </span>
-                                </div>
-
                                 <h3
                                     className="text-sm font-bold text-white mb-0.5"
                                     style={{ fontFamily: "var(--font-montserrat), sans-serif" }}
