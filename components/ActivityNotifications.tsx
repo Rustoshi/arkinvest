@@ -3,24 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { TrendingUp, ArrowDownRight, DollarSign } from "lucide-react";
-
-const COUNTRIES = [
-    "United States",
-    "United Kingdom",
-    "Canada",
-    "Germany",
-    "France",
-    "Australia",
-    "Japan",
-    "Switzerland",
-    "Netherlands",
-    "Sweden",
-    "Singapore",
-    "South Korea",
-    "Norway",
-    "Denmark",
-    "Ireland",
-];
+import { NAMES_BY_COUNTRY, COUNTRY_NAMES } from "@/lib/notification-names";
 
 const ACTIONS: { label: string; icon: typeof TrendingUp; color: string }[] = [
     { label: "traded", icon: TrendingUp, color: "text-blue-400" },
@@ -41,6 +24,7 @@ function generateAmount(): string {
 
 interface Notification {
     id: number;
+    name: string;
     country: string;
     action: string;
     amount: string;
@@ -62,13 +46,16 @@ export default function ActivityNotifications() {
     const [idCounter, setIdCounter] = useState(0);
 
     const showNotification = useCallback(() => {
-        const country = COUNTRIES[randomBetween(0, COUNTRIES.length - 1)];
+        const country = COUNTRY_NAMES[randomBetween(0, COUNTRY_NAMES.length - 1)];
+        const names = NAMES_BY_COUNTRY[country];
+        const name = names[randomBetween(0, names.length - 1)];
         const action = ACTIONS[randomBetween(0, ACTIONS.length - 1)];
         const amount = generateAmount();
 
         setIdCounter((prev) => prev + 1);
         setNotification({
             id: idCounter,
+            name,
             country,
             action: action.label,
             amount,
@@ -126,8 +113,9 @@ export default function ActivityNotifications() {
 
                 <div className="min-w-0">
                     <p className="text-[12px] text-white/80 leading-tight">
-                        Someone from{" "}
-                        <span className="font-semibold text-white">{notification.country}</span>{" "}
+                        <span className="font-semibold text-white">{notification.name}</span>{" "}
+                        from{" "}
+                        <span className="text-white/60">{notification.country}</span>{" "}
                         just{" "}
                         <span className={`font-semibold ${notification.color}`}>
                             {notification.action}
