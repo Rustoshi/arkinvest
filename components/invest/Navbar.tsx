@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
     { label: "How It Works", href: "/how-it-works" },
@@ -14,6 +15,11 @@ const navLinks = [
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setMobileMenuOpen(false);
+    }, [pathname]);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 30);
@@ -105,12 +111,13 @@ export default function Navbar() {
                         </Link>
                     ))}
                     <div className="flex flex-col gap-3 pt-3 border-t border-white/[0.06]">
-                        <Link href="/invest/login" className="text-sm text-white/70 hover:text-white">
+                        <Link href="/invest/login" className="text-sm text-white/70 hover:text-white" onClick={() => setMobileMenuOpen(false)}>
                             Login
                         </Link>
                         <Link
                             href="/invest/signup"
                             className="text-sm text-center px-5 py-2.5 rounded-full border border-white/40 text-white hover:bg-white hover:text-black transition-all"
+                            onClick={() => setMobileMenuOpen(false)}
                         >
                             Get Started
                         </Link>

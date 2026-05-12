@@ -73,7 +73,7 @@ export function buildRegistrationOtpEmail(firstName: string, otp: string): strin
 }
 
 export function buildWelcomeEmail(firstName: string): string {
-    const loginUrl = `${process.env.NEXTAUTH_URL || "https://arkinvests.pro"}/invest/login`;
+    const loginUrl = `${process.env.NEXTAUTH_URL || "https://arkvest.vercel.app"}/invest/login`;
     return `
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background-color: #0a0a0a; color: #ffffff; border-radius: 12px;">
   <h1 style="font-size: 22px; letter-spacing: 3px; text-transform: uppercase; margin: 0 0 4px;">
@@ -142,7 +142,7 @@ export function buildMembershipApprovedEmail(
     cardNumber: string,
     expiresAt: string
 ): string {
-    const dashboardUrl = `${process.env.NEXTAUTH_URL || 'https://arkinvests.pro'}/dashboard/membership`;
+    const dashboardUrl = `${process.env.NEXTAUTH_URL || 'https://arkvest.vercel.app'}/dashboard/membership`;
     return `
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background-color: #0a0a0a; color: #ffffff; border-radius: 12px;">
   <h1 style="font-size: 22px; letter-spacing: 3px; text-transform: uppercase; margin: 0 0 4px;">
@@ -177,7 +177,7 @@ export function buildMembershipRejectedEmail(
     tierName: string,
     reason?: string
 ): string {
-    const dashboardUrl = `${process.env.NEXTAUTH_URL || 'https://arkinvests.pro'}/dashboard/membership`;
+    const dashboardUrl = `${process.env.NEXTAUTH_URL || 'https://arkvest.vercel.app'}/dashboard/membership`;
     return `
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background-color: #0a0a0a; color: #ffffff; border-radius: 12px;">
   <h1 style="font-size: 22px; letter-spacing: 3px; text-transform: uppercase; margin: 0 0 4px;">
@@ -254,7 +254,7 @@ export function buildDepositPendingEmail(firstName: string, amount: string, meth
 }
 
 export function buildDepositApprovedEmail(firstName: string, amount: string, method: string): string {
-    const dashboardUrl = `${process.env.NEXTAUTH_URL || 'https://arkinvests.pro'}/dashboard`;
+    const dashboardUrl = `${process.env.NEXTAUTH_URL || 'https://arkvest.vercel.app'}/dashboard`;
     return `
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background-color: #0a0a0a; color: #ffffff; border-radius: 12px;">
   <h1 style="font-size: 22px; letter-spacing: 3px; text-transform: uppercase; margin: 0 0 4px;">
@@ -519,7 +519,7 @@ export function buildReferralRewardEmail(referrerName: string, refereeName: stri
 }
 
 export function buildApprovalEmail(firstName: string): string {
-    const loginUrl = `${process.env.NEXTAUTH_URL || "https://arkinvests.pro"}/invest/login`;
+    const loginUrl = `${process.env.NEXTAUTH_URL || "https://arkvest.vercel.app"}/invest/login`;
     return `
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background-color: #0a0a0a; color: #ffffff; border-radius: 12px;">
   <h1 style="font-size: 22px; letter-spacing: 3px; text-transform: uppercase; margin: 0 0 4px;">
